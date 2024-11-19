@@ -1,5 +1,7 @@
 pub mod parse;
-pub mod types; // Ensure types are also accessible
+pub mod write;
+pub mod types; 
 
-// Re-export the parse_gfa function for easier access
+// Re-export functions for easier access
 pub use parse::gfa::parse_gfa;
+pub use write::graphml::write_graphml;
