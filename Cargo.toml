@@ -4,3 +4,10 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+anyhow	= { version = "1.0" } # easy idiomatic error handling
+clap	= { version = "4", features = ["derive", "cargo"] } # CLI
+fxread	= { version = "0.2.14" } # barebones fastx reader
+
+[dev-dependencies]
+tempfile = { version = "3" } # temporary file library
+
