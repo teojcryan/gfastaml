@@ -12,7 +12,7 @@ Specifically,
 	- L: Link lines denoting the bidirected edges linking segments
 - .fasta files as specified in [bcalm2 format](https://github.com/GATB/bcalm/blob/master/bidirected-graphs-in-bcalm2/bidirected-graphs-in-bcalm2.md#bcalm-2)
 	- These are regular .fasta files except graph edges (or links in .gfa) are encoded by `L:<e.fromSign>:<e.to>:<e.toSign>` in the header
-- Graph Markup Language (.graphml) files are defined as (such)[http://graphml.graphdrawing.org/specification/xsd.html]
+- Graph Markup Language (.graphml) files are defined as [such](http://graphml.graphdrawing.org/specification/xsd.html)
 	- This is explained more simply [here](https://gephi.org/users/supported-graph-formats/graphml-format/). 
 
 ## Usage
