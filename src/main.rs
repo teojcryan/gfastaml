@@ -1,33 +1,38 @@
 use clap::Parser;
 use anyhow::Result;
-use gfastaml::parse::gfa::parse_gfa;
-use gfastaml::write::graphml::write_graphml;
+use gfastaml::conversions::{gfa_to_graphml::convert_gfa_to_graphml, fasta_to_gfa::convert_fasta_to_gfa, fasta_to_graphml::convert_fasta_to_graphml};
 
 /// Command-line arguments struct using clap
 #[derive(Parser)]
-#[command(name = "gfastaml", about = "A tool for parsing GFA files and converting them")]
+#[command(name = "gfastaml", about = "A tool for parsing and converting files")]
 struct Args {
-    /// Input GFA file
+    /// Input file
     #[arg(short, long)]
-    gfa_file: String,
+    input_file: String,
 
-    /// Output GraphML file
+    /// Output file
     #[arg(short, long)]
     output_file: String,
+
+    /// Conversion type
+    #[arg(short, long)]
+    conversion: String, // Options: "gfa_to_graphml", "fasta_to_gfa", "fasta_to_graphml"
 }
 
 fn main() -> Result<()> {
     // Parse command-line arguments
     let args = Args::parse();
 
-    // Call the parse function with the specified GFA file
-    let (nodes, edges) = parse_gfa(&args.gfa_file)?;
+    match args.conversion.as_str() {
+        "gfa_to_graphml" => convert_gfa_to_graphml(&args.input_file, &args.output_file)?,
+        "fasta_to_gfa" => convert_fasta_to_gfa(&args.input_file, &args.output_file)?,
+        "fasta_to_graphml" => convert_fasta_to_graphml(&args.input_file, &args.output_file)?,
+        _ => {
+            eprintln!("Invalid conversion type. Use 'gfa_to_graphml', 'fasta_to_gfa', or 'fasta_to_graphml'.");
+            std::process::exit(1);
+        }
+    }
 
-    println!("Parsed {} nodes and {} edges.", nodes.len(), edges.len());
-
-    // Call the write_graphml function with the parsed nodes and edges
-    write_graphml(nodes, edges, &args.output_file)?;
-    
-    println!("GraphML file written to {}", args.output_file);
+    println!("Conversion completed. Output written to {}", args.output_file);
     Ok(())
 }
