@@ -1,6 +1,6 @@
 use clap::Parser;
 use anyhow::Result;
-use gfastaml::conversions::{gfa_to_graphml::convert_gfa_to_graphml, fasta_to_gfa::convert_fasta_to_gfa, fasta_to_graphml::convert_fasta_to_graphml};
+use gfastaml::conversions::{convert_gfa_to_graphml, convert_fasta_to_gfa, convert_fasta_to_graphml};
 
 /// Command-line arguments struct using clap
 #[derive(Parser)]
@@ -23,6 +23,7 @@ fn main() -> Result<()> {
     // Parse command-line arguments
     let args = Args::parse();
 
+    // Determine which conversion to run based on user input
     match args.conversion.as_str() {
         "gfa_to_graphml" => convert_gfa_to_graphml(&args.input_file, &args.output_file)?,
         "fasta_to_gfa" => convert_fasta_to_gfa(&args.input_file, &args.output_file)?,
